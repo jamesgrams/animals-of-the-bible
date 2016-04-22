@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Bible Animals</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_animal_view">AnimalView</string>
+    <string name="title_activity_animal">Bible Animals</string>
+    <string name="animalNamePlaceholder"><![CDATA[<Name>]]></string>
+    <string name="animalScientificNamePlaceholder"><![CDATA[<Scientific Name>]]></string>
+    <string name="animalDescription">Description</string>
+    <string name="animalDescriptionPlaceholder"><![CDATA[<Description>]]></string>
+    <string name="animalPictureDescription">Picture of Animal</string>
+    <string name="animalVerses">Verses</string>
+    <string name="animalVersesPlaceholder"><![CDATA[<Verses>]]></string>
+    <string name="backLabel">Back</string>
+</resources>
