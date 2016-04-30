@@ -1,5 +1,6 @@
 package edu.gordon.cs.bibleanimals;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,13 +8,19 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +35,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -49,13 +58,7 @@ public class AnimalActivity extends AppCompatActivity {
         Animal animal = animalsList.get(animalName);
 
         // Begin filling in data for this animal
-        String animalNames = "";
-        for(Integer i = 0; i < animal.getTerms().length; i++) {
-            if(i > 0) {
-                animalNames += ", ";
-            }
-            animalNames += animal.getTerms()[i];
-        }
+        String animalNames = animal.getTermsString(", ");
 
         TextView textView = (TextView) findViewById(R.id.nameText);
         textView.setText(animalNames);
@@ -64,6 +67,8 @@ public class AnimalActivity extends AppCompatActivity {
         new EolOnlineContentTask().execute(animal.getEolID());
         // Fetch the Bible verses from online
         new BibleTask().execute(animalNames);
+
+        Toast.makeText(this, "Loading Information", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -142,9 +147,9 @@ public class AnimalActivity extends AppCompatActivity {
             scientificNameText.setText(scientificName);
 
             new ImageTask().execute(imageUrl);
+            Toast.makeText(this, "Loading Image", Toast.LENGTH_SHORT).show();
         }
         catch (JSONException e) {
-
             descriptionText.setText(json);
             scientificNameText.setText("");
         }
@@ -156,24 +161,35 @@ public class AnimalActivity extends AppCompatActivity {
      * @param json the JSON response by Biblia
      */
     public void setVerses(String json) {
-        TextView versesText = (TextView) findViewById(R.id.versesText);
+        //TextView versesText = (TextView) findViewById(R.id.versesText);
+        //versesText.setVisibility(View.GONE);
+
         try {
-            String verses = "";
             JSONObject jsonObject = new JSONObject(json);
             JSONArray resultArray = jsonObject.getJSONArray("results");
+            ArrayList<String> references = new ArrayList<>();
+            ArrayList<Object> verses = new ArrayList<>();
             for(Integer i = 0; i < resultArray.length(); i++) {
                 JSONObject currentObject = resultArray.getJSONObject(i);
                 // http://stackoverflow.com/questions/1529068/is-it-possible-to-have-multiple-styles-inside-a-textview
-                verses += "<b>" + currentObject.getString("title") + ":</b> ";
-                verses += currentObject.getString("preview");
-                verses += "<br>";
+                references.add(currentObject.getString("title"));
+                ArrayList<String> child = new ArrayList<>();
+                child.add(currentObject.getString("preview"));
+                verses.add(child);
             }
-            // http://stackoverflow.com/questions/1529068/is-it-possible-to-have-multiple-styles-inside-a-textview
-            versesText.setText(Html.fromHtml(verses));
+
+            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+            expandableListView.setGroupIndicator(null);
+            expandableListView.setClickable(true);
+
+            MyExpandableAdapter adapter = new MyExpandableAdapter(references, verses);
+            adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), this);
+            expandableListView.setAdapter(adapter);
         }
         catch (JSONException e) {
-            versesText.setText(json);
+            //versesText.setText(json);
         }
+
     }
 
     /**
@@ -227,7 +243,7 @@ public class AnimalActivity extends AppCompatActivity {
                 in.close();
             }
             catch (Exception e) {
-                json = "Error loading animal description. Are you connected to the internet?";
+                json =  "Error loading animal description. Are you connected to the internet?";
             }
 
             return json;

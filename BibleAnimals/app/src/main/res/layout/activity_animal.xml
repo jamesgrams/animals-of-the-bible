@@ -24,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/animalNamePlaceholder"
                 android:id="@+id/nameText"
                 android:layout_gravity="center_horizontal" />
 
@@ -32,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/animalScientificNamePlaceholder"
                 android:id="@+id/scientificNameText"
                 android:layout_gravity="center_horizontal" />
 
@@ -73,7 +71,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/animalDescriptionPlaceholder"
                     android:id="@+id/descriptionText" />
             </ScrollView>
         </LinearLayout>
@@ -95,18 +92,10 @@
                 android:layout_gravity="center_horizontal"
                 android:visibility="visible" />
 
-            <ScrollView
+            <ExpandableListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/scrollView2" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/animalVersesPlaceholder"
-                    android:id="@+id/versesText" />
-            </ScrollView>
+                android:id="@+id/expandableListView" />
         </LinearLayout>
 
         <LinearLayout

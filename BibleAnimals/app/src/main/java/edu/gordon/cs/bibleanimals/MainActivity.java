@@ -9,9 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -27,36 +32,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Animals animals = Animals.getInstance();
-        TreeMap<String, Animal> animalsList = animals.get();
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-
         final Context context = this;
-        Integer count = 0;
-        LinearLayout linearLayout = null;
-        // Create all the buttons
-        for(final Map.Entry<String, Animal> entry : animalsList.entrySet()) {
-            if(count % 2 == 0) {
-                linearLayout = new LinearLayout(this);
-                layout.addView(linearLayout);
-            }
-            Button button = new Button(this);
-            button.setText(entry.getKey());
+        ArrayList<String> animalsList = animals.getKeys();
+        ListView listView = (ListView) findViewById(R.id.listView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String> (
+                this, R.layout.row, animalsList);
+        listView.setAdapter(adapter);
 
-            View.OnClickListener clickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, AnimalActivity.class);
-                    intent.putExtra(ANIMAL, entry.getKey());
-                    startActivity(intent);
-                }
-            };
-            button.setOnClickListener(clickListener);
-            LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT, 0.5f);
-            button.setLayoutParams(layoutParams);
-            linearLayout.addView(button);
-            count ++;
-        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String current = (String) ((TextView) view).getText();
+                Intent intent = new Intent(context, AnimalActivity.class);
+                intent.putExtra(ANIMAL, current);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

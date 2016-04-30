@@ -7,43 +7,35 @@ package edu.gordon.cs.bibleanimals;
 public class Animal {
     private String[] terms;
     private Integer eolID;
-    private String color;
-    private String textColor;
 
     /**
      * Constuctor
      * @param terms the various names for this animal
      * @param eolID the Encyclopedia of Life ID for this animal
-     * @param color the color for this animal
-     * @param textColor the text color for this animal
      */
-    public Animal(String terms[], Integer eolID, String color, String textColor) {
+    public Animal(String terms[], Integer eolID) {
         this.terms = terms;
         this.eolID = eolID;
-        this.color = color;
-        this.textColor = textColor;
     }
 
     /**
      * Get the terms (names) of this animal
      * @return the names of this animal
      */
-    public String[] getTerms() { return terms; };
+    public String[] getTerms() { return terms; }
 
     /**
-     * Get the color of this animal
-     * @return the color of this animal
+     * Get the terms for this animal as a string with the specified separator
      */
-    public String getColor() {
-        return color;
-    }
-
-    /**
-     * Get the text color for this animal
-     * @return the text color for this animal
-     */
-    public String getTextColor() {
-        return textColor;
+    public String getTermsString(String separator) {
+        String animalNames = "";
+        for(Integer i = 0; i < this.getTerms().length; i++) {
+            if(i > 0) {
+                animalNames += separator;
+            }
+            animalNames += this.getTerms()[i];
+        }
+        return animalNames;
     }
 
     /**
