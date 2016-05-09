@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 /**
  * Expandable adapter to be used for the Bible animals app
+ * Based on example code from here: https://examples.javacodegeeks.com/android/core/ui/expandablelistview/android-expandablelistview-example/
  */
 public class BibleAnimalsExpandableAdapter extends BaseExpandableListAdapter {
     private Activity activity;
