@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageView"
                 android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/animalPictureDescription"
+                android:contentDescription="@string/animal_picture_description"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp" />
 
@@ -57,22 +57,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/animalDescription"
+                android:text="@string/animal_description"
                 android:id="@+id/descriptionLabel"
                 android:layout_gravity="center_horizontal" />
 
-            <ScrollView
+            <ExpandableListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/scrollView"
-                android:fillViewport="false">
+                android:id="@+id/expandableListViewAbout" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/descriptionText" />
-            </ScrollView>
         </LinearLayout>
 
         <LinearLayout
@@ -87,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/animalVerses"
+                android:text="@string/animal_verses"
                 android:id="@+id/versesLabel"
                 android:layout_gravity="center_horizontal"
                 android:visibility="visible" />
@@ -106,7 +99,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/animalDescription"
+                android:text="@string/animal_description"
                 android:id="@+id/descriptionButton"
                 android:onClick="toggleViews"
                 android:layout_weight="0.5"
@@ -115,12 +108,11 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/animalVerses"
+                android:text="@string/animal_verses"
                 android:id="@+id/versesButton"
                 android:onClick="toggleViews"
                 android:layout_weight="0.5"
-                android:enabled="true"
-                android:nestedScrollingEnabled="false" />
+                android:enabled="true" />
         </LinearLayout>
 
     </LinearLayout>

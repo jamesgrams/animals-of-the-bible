@@ -1,16 +1,27 @@
 <resources>
     <string name="app_name">Bible Animals</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_animal_view">AnimalView</string>
     <string name="title_activity_animal">Bible Animals</string>
-    <string name="animalNamePlaceholder"><![CDATA[<Name>]]></string>
-    <string name="animalScientificNamePlaceholder"><![CDATA[<Scientific Name>]]></string>
-    <string name="animalDescription">Description</string>
-    <string name="animalDescriptionPlaceholder"><![CDATA[<Description>]]></string>
-    <string name="animalPictureDescription">Picture of Animal</string>
-    <string name="animalVerses">Verses</string>
-    <string name="animalVersesPlaceholder"><![CDATA[<Verses>]]></string>
-    <string name="backLabel">Back</string>
+    <string name="title_activity_settings">Bible Animals</string>
+    <string name="animal_description">About</string>
+    <string name="animal_picture_description">Picture of Animal</string>
+    <string name="animal_verses">Verses</string>
+    <string name="back_label">Back</string>
+    <string name="settings">Settings</string>
+    <string name="use_online">Use Online</string>
+    <string name="download_data">Download Data</string>
+    <string name="download_message">You have books data downloaded on your device. However, you can re-download information in case the Biblia Search results have improved by tapping the button below."</string>
+    <string name="no_download_message">You do not have books data for animals downloaded on your device. Tap below to download.</string>
+    <string name="sort_by_books">Sort by Books</string>
+    <string name="sort_by_categories">Sort by Type</string>
+    <string name="could_not_load_picture">Unable to fetch picture</string>
+    <string name="could_not_load_verses">Unable to load verses</string>
+    <string name="could_not_load_about">Unable to fetch information</string>
+    <string name="need_to_download_books_error">Please download book information in Settings</string>
+    <string name="downloading_book_data">Downloading book data for animal</string>
+    <string name="downloading_complete">Download complete</string>
+    <string name="downloading_error">An error occurred while downloading books data</string>
+    <string name="credits">This app uses the <a href="http://biblia.com/">Biblia</a> web services from <a href="http://www.logos.com/">Logos Bible Software</a>, uses encyclopedia information from <a href = "http://www.eol.org">the Encyclopedia of Life</a>, and was created by James Grams in April and May, 2016.</string>
+    <string name="creditsLabel">Credits</string>
+    <string name="biblia_logo">Biblia logo</string>
+    <string name="link_indicator">Link indicator</string>
 </resources>

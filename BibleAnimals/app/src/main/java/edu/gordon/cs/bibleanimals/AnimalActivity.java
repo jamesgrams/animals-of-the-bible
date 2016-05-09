@@ -2,19 +2,13 @@ package edu.gordon.cs.bibleanimals;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -22,27 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Collections;
 import java.util.TreeMap;
 
 /**
  * Activity for viewing an animal
  */
 public class AnimalActivity extends AppCompatActivity {
+    private AnimalTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +45,8 @@ public class AnimalActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.nameText);
         textView.setText(animalNames);
 
-        // Fetch the animal information from online
-        new EolOnlineContentTask().execute(animal.getEolID());
-        // Fetch the Bible verses from online
-        new BibleTask().execute(animalNames);
+        task = new AnimalTask();
+        task.execute(animal);
 
         Toast.makeText(this, "Loading Information", Toast.LENGTH_SHORT).show();
     }
@@ -76,6 +56,12 @@ public class AnimalActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_animal, menu);
         return true;
+    }
+
+    @Override
+    public void onStop() {
+        if(task != null) task.cancel(true);
+        super.onStop();
     }
 
     @Override
@@ -118,174 +104,90 @@ public class AnimalActivity extends AppCompatActivity {
     }
 
     /**
-     * Set the animal's image
-     * @param image the bitmap to display for the animal
+     * Set up the view based on an animal
+     * @param animal the animal to display information for
      */
-    public void setAnimalImage(Bitmap image) {
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setImageBitmap(image);
-    }
-
-    /**
-     * Set the animal's details based on information from EOL
-     * @param json the JSON response for the animal from EOL
-     */
-    public void setAnimalDetails(String json) {
-        TextView descriptionText = (TextView) findViewById(R.id.descriptionText);
+    public void setUpView(Animal animal) {
         TextView scientificNameText = (TextView) findViewById(R.id.scientificNameText);
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONObject dataObject = jsonObject.getJSONArray("dataObjects").getJSONObject(0);
-            JSONObject imageObject = jsonObject.getJSONArray("dataObjects").getJSONObject(1);
-            JSONObject taxonConcept = jsonObject.getJSONArray("taxonConcepts").getJSONObject(0);
-            // http://stackoverflow.com/questions/4432560/remove-html-tags-from-string-using-java
-            String description = dataObject.getString("description").replaceAll("\\<.*?>", "").
-                    replaceAll("&nbsp;", "");
-            String scientificName = taxonConcept.getString("canonicalForm");
-            String imageUrl = imageObject.getString("eolMediaURL");
-            descriptionText.setText(Html.fromHtml(description));
-            scientificNameText.setText(scientificName);
 
-            new ImageTask().execute(imageUrl);
-            Toast.makeText(this, "Loading Image", Toast.LENGTH_SHORT).show();
+        // Set up the about section
+        if(animal.getDescription() != null) {
+            ArrayList<String> set = new ArrayList<>(animal.getDescription().keySet());
+            ArrayList<String> collection = new ArrayList<>(animal.getDescription().values());
+            ArrayList<String> subjects = new ArrayList<>();
+            ArrayList<Object> descriptions = new ArrayList<>();
+            subjects.addAll(set);
+            for (int i = 0; i < collection.size(); i++) {
+                ArrayList<String> child = new ArrayList<>();
+                child.add(collection.get(i));
+                descriptions.add(child);
+            }
+
+            ExpandableListView expandableListViewAbout = (ExpandableListView) findViewById(R.id.expandableListViewAbout);
+            expandableListViewAbout.setClickable(true);
+            BibleAnimalsExpandableAdapter adapterAbout = new BibleAnimalsExpandableAdapter(subjects, descriptions, false, true, this);
+            adapterAbout.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), this);
+            expandableListViewAbout.setAdapter(adapterAbout);
         }
-        catch (JSONException e) {
-            descriptionText.setText(json);
-            scientificNameText.setText("");
+
+        // Set up the scientific name - OK, when an error is thrown, this is just set to ""
+        scientificNameText.setText(animal.getScientificName());
+
+        // Set up the image view
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        if(animal.getImage() != null) {
+            imageView.setImageBitmap(animal.getImage());
         }
 
-    }
+        // Set up the verses section
+        ArrayList<Verse> allVerses = animal.getVerses();
+        if(allVerses != null) {
+            Collections.sort(allVerses);
+            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+            expandableListView.setClickable(true);
 
-    /**
-     * Set the verses view based on the response from the search on Biblia
-     * @param json the JSON response by Biblia
-     */
-    public void setVerses(String json) {
-        //TextView versesText = (TextView) findViewById(R.id.versesText);
-        //versesText.setVisibility(View.GONE);
-
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray resultArray = jsonObject.getJSONArray("results");
             ArrayList<String> references = new ArrayList<>();
             ArrayList<Object> verses = new ArrayList<>();
-            for(Integer i = 0; i < resultArray.length(); i++) {
-                JSONObject currentObject = resultArray.getJSONObject(i);
-                // http://stackoverflow.com/questions/1529068/is-it-possible-to-have-multiple-styles-inside-a-textview
-                references.add(currentObject.getString("title"));
+            for (int i = 0; i < allVerses.size(); i++) {
+                references.add(allVerses.get(i).getReference());
                 ArrayList<String> child = new ArrayList<>();
-                child.add(currentObject.getString("preview"));
+                child.add(allVerses.get(i).getVerse());
                 verses.add(child);
             }
 
-            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-            expandableListView.setGroupIndicator(null);
-            expandableListView.setClickable(true);
-
-            MyExpandableAdapter adapter = new MyExpandableAdapter(references, verses);
+            BibleAnimalsExpandableAdapter adapter = new BibleAnimalsExpandableAdapter(references, verses, false, false, this);
             adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE), this);
             expandableListView.setAdapter(adapter);
         }
-        catch (JSONException e) {
-            //versesText.setText(json);
-        }
 
+        // Some information was not loaded -> Display an error toast
+        if(animal.getVerses() == null)
+            Toast.makeText(this, R.string.could_not_load_verses,Toast.LENGTH_LONG).show();
+        if(animal.getDescription() == null)
+            Toast.makeText(this, R.string.could_not_load_about,Toast.LENGTH_LONG).show();
+        if(animal.getImage() == null)
+            Toast.makeText(this, R.string.could_not_load_picture,Toast.LENGTH_LONG).show();
     }
 
     /**
-     * This private class is used for requesting an image
+     * This private class is for waiting for the information that animal fetches
      */
-    private class ImageTask extends AsyncTask<String, Void, Bitmap> {
-        /**
-         * Fetch an image from a URL
-         * @param urls the URL to fetch the image from
-         * @return the Image
-         */
-        protected Bitmap doInBackground(String... urls) {
-            Bitmap image = null;
-            try {
-                URL url = new URL(urls[0]);
-                //http://stackoverflow.com/questions/5776851/load-image-from-url
-                image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            }
-            catch (Exception e) {
-                // Display error image
-            }
-
-            return image;
-        }
-
-        protected void onPostExecute(Bitmap image) {
-            setAnimalImage(image);
-        }
-    }
-
-    /**
-     * This private class is for requesting information from the Encyclopedia of Life
-      */
-    private class EolOnlineContentTask extends AsyncTask<Integer, Void, String> {
+    private class AnimalTask extends AsyncTask<Animal, Void, Animal> {
         /**
          * Fetch information for an animal
-         * @param ids the eol id for the animal to fetch data from
-         * @return the JSON response by the eol
+         * @param animals the animal to fetch data for
+         * @return the animal object to call setUpView for
          */
-        protected String doInBackground(Integer... ids) {
-            String eolID = ids[0].toString();
-            String json = "";
-            try {
-                URL url = new URL("http://eol.org/api/pages/"+eolID+".json?details=true&vetted=1");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader buf = new BufferedReader(new InputStreamReader(in));
-                String inputLine;
-                while ((inputLine = buf.readLine()) != null)
-                    json += inputLine;
-                in.close();
-            }
-            catch (Exception e) {
-                json =  "Error loading animal description. Are you connected to the internet?";
-            }
-
-            return json;
+        protected Animal doInBackground(Animal... animals) {
+            Animal animal = animals[0];
+            animal.fetchInformation();
+            return animal;
         }
 
-        protected void onPostExecute(String json) {
-            setAnimalDetails(json);
+        protected void onPostExecute(Animal animal) {
+            setUpView(animal);
         }
     }
 
-    /**
-     * This private class is for requesting Bible verses based on a given search term
-      */
-    private class BibleTask extends AsyncTask<String, Void, String> {
-        /**
-         * Fetch the Bible verses that an animal is in
-         * @param terms the term to search Biblia for
-         * @return the JSON response from Biblia
-         */
-        protected String doInBackground(String... terms) {
-            String urlString = "http://api.biblia.com/v1/bible/search/LEB.js?query="
-                    + terms[0].replaceAll(" ","") + "&key=b23da4e7ad84e911a8f2f3d1f46be194";
-            String verses = "";
-            try {
-                URL url = new URL(urlString);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader buf = new BufferedReader(new InputStreamReader(in));
-                String inputLine;
-                while ((inputLine = buf.readLine()) != null)
-                    verses += inputLine;
-                in.close();
-            }
-            catch (Exception e) {
-                verses = "Error loading Bible verses. Are you connected to the internet?";
-            }
 
-            return verses;
-        }
-
-        protected void onPostExecute(String json) {
-            setVerses(json);
-        }
-    }
 }
