@@ -1,14 +1,7 @@
 package edu.gordon.cs.bibleanimals;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -31,7 +24,6 @@ public class Animals {
     private TreeMap<String, Animal> animalMap;
     private TreeMap<String, TreeMap<String, Animal>> categoryMap;
     private TreeMap<String, TreeMap<String, Animal>> booksMap;
-    boolean gotBooks;
     private BibleBooks booksOfBible;
 
 
@@ -50,7 +42,6 @@ public class Animals {
      * Private constructor
       */
     private Animals() {
-        this.gotBooks = false;
         this.booksOfBible = BibleBooks.getInstance();
         // This variable is to store animals when they have more than one name
         // So multiple keys in the HashMap will point to the same animal
@@ -168,6 +159,106 @@ public class Animals {
         animalMap.put("Wolf", new Animal(new String[]{"Wolf"}, 328607, MAMMAL));
         animalMap.put("Worm", new Animal(new String[]{"Worm"}, 36, CREEPY_CRAWLIES));
 
+        animalMap.get("Adder").setBooks(new ArrayList<>(Arrays.asList(new String[]{"Proverbs",  "Jeremiah"})));
+        animalMap.get("Ant").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Proverbs"})));
+        animalMap.get("Ape").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "1 Kings"})));
+        animalMap.get("Asp").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Romans"})));
+        animalMap.get("Ass").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Daniel", "Isaiah", "Jeremiah", "Job"})));
+        animalMap.get("Baboon").setBooks(new ArrayList<>(Arrays.asList(new String[] {"1 Kings"})));
+        animalMap.get("Badger").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Proverbs", "Psalm"})));
+        animalMap.get("Bat").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Isaiah", "Leviticus"})));
+        animalMap.get("Bear").setBooks(new ArrayList<>(Arrays.asList(new String[] { "2 Samuel",  "2 Kings",  "Daniel",  "Job",  "Revelation",  "1 Samuel",  "Isaiah", "Hosea",  "Amos",  "Proverbs",  "Lamentations"})));
+        animalMap.get("Bee").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Judges", "Deuteronomy", "Isaiah", "Psalm"})));
+        animalMap.get("Bird").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Daniel", "Psalm", "1 Samuel", "Matthew", "Luke", "Leviticus", "Ecclesiastes", "Isaiah", "Revelation", "Hosea", "Amos", "Proverbs", "Nehemiah", "Genesis", "Romans", "Jeremiah", "Deuteronomy", "Job", "2 Samuel", "1 Kings", "Acts", "Lamentations", "Ezekiel", "Mark", "James", "1 Corinthians", "Zephaniah"})));
+        animalMap.get("Bull").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Calf").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Camel").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Exodus", "2 Chronicles", "2 Kings", "Judges", "Jeremiah", "Leviticus", "Deuteronomy", "Ezra", "Isaiah", "Job", "1 Samuel", "Genesis", "Mark", "Zechariah", "1 Kings", "Matthew", "1 Chronicles", "Nehemiah", "Ezekiel", "Luke"})));
+        animalMap.get("Caterpillar").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "1 Kings"})));
+        animalMap.get("Cattle").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Chameleon").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus"})));
+        animalMap.get("Colt").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "Mark", "Luke", "Job", "Genesis"})));
+        animalMap.get("Coney").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Coral").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Ezekiel", "Job"})));
+        animalMap.get("Cormorant").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Cow").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Crane").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Isaiah"})));
+        animalMap.get("Cricket").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Crocodile").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus"})));
+        animalMap.get("Deer").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Psalm", "Job", "Isaiah", "Habakkuk", "1 Kings", "Acts", "Proverbs", "2 Samuel"})));
+        animalMap.get("Dog").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Ecclesiastes", "Mark", "Judges", "Jeremiah", "Philippians", "Deuteronomy", "2 Kings", "Psalm", "2 Samuel", "Job", "1 Samuel", "Revelation", "Isaiah", "2 Peter", "1 Kings", "Matthew", "Proverbs", "Exodus", "Luke"})));
+        animalMap.get("Donkey").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Psalm", "1 Samuel", "Matthew", "Luke", "Judges", "Isaiah", "Hosea", "Zechariah", "1 Chronicles", "Numbers", "Exodus", "Jeremiah", "Deuteronomy", "2 Kings", "Joshua", "2 Samuel", "Job", "1 Kings", "Proverbs", "John", "Ezekiel", "Nehemiah", "Ezra", "Genesis", "Mark", "2 Peter"})));
+        animalMap.get("Dove").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Numbers", "Leviticus", "Mark", "2 Kings", "Psalm", "Isaiah", "Nahum", "Hosea", "Song of Solomon", "Luke", "Matthew", "John", "Genesis", "Ezekiel", "Jeremiah"})));
+        animalMap.get("Eagle").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Daniel", "Isaiah", "Jeremiah", "Deuteronomy", "Exodus", "Psalm", "Micah", "Job", "Revelation", "2 Samuel", "Habakkuk", "Obadiah", "Proverbs", "Lamentations", "Ezekiel", "Leviticus"})));
+        animalMap.get("Ewe").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus", "Psalm", "Genesis", "Song of Solomon", "Numbers", "2 Samuel"})));
+        animalMap.get("Falcon").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Job"})));
+        animalMap.get("Fawn").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Psalm", "Job", "Isaiah", "Habakkuk", "1 Kings", "Acts", "Proverbs", "2 Samuel"})));
+        animalMap.get("Fish").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Psalm", "1 Samuel", "Matthew", "Luke", "Ecclesiastes", "Jonah", "Zephaniah", "Isaiah", "Hosea", "Amos", "Nehemiah", "Genesis", "Exodus", "Jeremiah", "1 Corinthians", "Job", "1 Kings", "Deuteronomy", "John", "Ezekiel", "Numbers", "Habakkuk", "Mark"})));
+        animalMap.get("Flea").setBooks(new ArrayList<>(Arrays.asList(new String[] {"1 Samuel"})));
+        animalMap.get("Fly").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Isaiah"})));
+        animalMap.get("Fowl").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Daniel", "Psalm", "1 Samuel", "Matthew", "Luke", "Leviticus", "Ecclesiastes", "Isaiah", "Revelation", "Hosea", "Amos", "Proverbs", "Nehemiah", "Genesis", "Romans", "Jeremiah", "Deuteronomy", "Job", "2 Samuel", "1 Kings", "Acts", "Lamentations", "Ezekiel", "Mark", "James", "1 Corinthians", "Zephaniah"})));
+        animalMap.get("Fox").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Nehemiah", "Judges", "Matthew", "Song of Solomon", "Luke", "Lamentations", "Ezekiel"})));
+        animalMap.get("Frog").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Revelation", "Psalm", "Exodus"})));
+        animalMap.get("Gazelle").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Acts", "Isaiah", "Song of Solomon", "1 Kings", "1 Chronicles", "Proverbs", "2 Samuel"})));
+        animalMap.get("Gecko").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus"})));
+        animalMap.get("Gnat").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "Isaiah", "Psalm", "Exodus"})));
+        animalMap.get("Goat").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Psalm", "1 Samuel", "Matthew", "Song of Solomon", "Luke", "Jeremiah", "Judges", "Isaiah", "Amos", "Proverbs", "Numbers", "Exodus", "Hebrews", "Leviticus", "Deuteronomy", "Zechariah", "Job", "1 Kings", "Ezekiel", "Ezra", "Daniel", "Genesis"})));
+        animalMap.get("Grasshopper").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Ecclesiastes", "Isaiah", "Numbers", "Nahum", "Leviticus"})));
+        animalMap.get("Hare").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Hawk").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus", "Job"})));
+        animalMap.get("Hedgehog").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Isaiah"})));
+        animalMap.get("Heifer").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Hen").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "Luke", "Zechariah"})));
+        animalMap.get("Heron").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Hippopotamus").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Job"})));
+        animalMap.get("Hoopoe").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Hornet").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Joshua", "Exodus"})));
+        animalMap.get("Horse").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "Mark", "Luke", "Job", "Genesis"})));
+        animalMap.get("Hyena").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Isaiah", "Jeremiah"})));
+        animalMap.get("Ibex").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy"})));
+        animalMap.get("Jackal").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Jeremiah", "Psalm", "Malachi", "Micah", "Job", "Isaiah", "Lamentations", "Ezekiel"})));
+        animalMap.get("Kid").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Psalm", "1 Samuel", "Matthew", "Song of Solomon", "Luke", "Jeremiah", "Judges", "Isaiah", "Amos", "Proverbs", "Numbers", "Exodus", "Hebrews", "Leviticus", "Deuteronomy", "Zechariah", "Job", "1 Kings", "Ezekiel", "Ezra", "Daniel", "Genesis"})));
+        animalMap.get("Kite").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus", "Job"})));
+        animalMap.get("Lamb").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus", "Psalm", "Genesis", "Song of Solomon", "Numbers", "2 Samuel"})));
+        animalMap.get("Leech").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Proverbs"})));
+        animalMap.get("Leopard").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Jeremiah", "Daniel", "Isaiah", "Habakkuk", "Revelation", "Hosea", "Song of Solomon"})));
+        animalMap.get("Lion").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Psalm", "Micah", "1 Samuel", "Song of Solomon", "2 Timothy", "Ecclesiastes", "Judges", "Zephaniah", "1 Peter", "Isaiah", "Revelation", "Hosea", "Amos", "Zechariah", "1 Chronicles", "Numbers", "Hebrews", "Jeremiah", "Deuteronomy", "2 Kings", "Job", "2 Samuel", "Nahum", "1 Kings", "Proverbs", "Lamentations", "Ezekiel", "Joel", "Daniel", "Genesis"})));
+        animalMap.get("Lizard").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Proverbs", "Leviticus"})));
+        animalMap.get("Locust").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Mark", "Joel", "Jeremiah", "Judges", "Malachi", "Deuteronomy", "Psalm", "Nahum", "Revelation", "Isaiah", "Job", "Amos", "Matthew", "Proverbs", "1 Kings", "Exodus", "Leviticus"})));
+        animalMap.get("Mare").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "Mark", "Luke", "Job", "Genesis"})));
+        animalMap.get("Mole").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Isaiah"})));
+        animalMap.get("Moth").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "1 Kings"})));
+        animalMap.get("Mouse").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus"})));
+        animalMap.get("Mule").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Ezra", "2 Kings", "Psalm", "Isaiah", "Zechariah", "2 Samuel", "1 Kings", "1 Chronicles", "Nehemiah", "Ezekiel"})));
+        animalMap.get("Ostrich").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus", "Deuteronomy", "Micah", "Job", "Isaiah", "Lamentations", "Jeremiah"})));
+        animalMap.get("Owl").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Zephaniah", "Psalm", "Leviticus", "Isaiah"})));
+        animalMap.get("Ox").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Oxen").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "2 Chronicles", "Psalm", "Micah", "1 Samuel", "Jeremiah", "Judges", "Malachi", "Isaiah", "Amos", "1 Chronicles", "Numbers", "Exodus", "Hebrews", "Leviticus", "Job", "Proverbs", "1 Kings", "Acts", "Ezekiel", "Ezra", "Genesis"})));
+        animalMap.get("Partridge").setBooks(new ArrayList<>(Arrays.asList(new String[] {"1 Samuel", "Jeremiah"})));
+        animalMap.get("Peacock").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles"})));
+        animalMap.get("Pig").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Mark", "Leviticus", "Deuteronomy", "Matthew", "Luke", "Proverbs"})));
+        animalMap.get("Pigeon").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Genesis", "Numbers", "Luke"})));
+        animalMap.get("Quail").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Numbers", "Psalm", "Exodus"})));
+        animalMap.get("Ram").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus", "Psalm", "Genesis", "Song of Solomon", "Numbers", "2 Samuel"})));
+        animalMap.get("Raven").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Jeremiah", "Deuteronomy", "Psalm", "Isaiah", "Zephaniah", "Song of Solomon", "Luke", "Matthew", "Proverbs", "Genesis"})));
+        animalMap.get("Roebuck").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "1 Kings"})));
+        animalMap.get("Scorpion").setBooks(new ArrayList<>(Arrays.asList(new String[] {"2 Chronicles", "Deuteronomy", "Revelation", "Luke", "1 Kings", "Numbers", "Ezekiel"})));
+        animalMap.get("Seagull").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Leviticus"})));
+        animalMap.get("Serpent").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Numbers", "2 Kings", "Psalm", "Isaiah", "Micah", "Revelation", "Genesis", "Amos", "Acts", "Matthew", "Proverbs", "2 Corinthians"})));
+        animalMap.get("Sheep").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus", "Psalm", "Genesis", "Song of Solomon", "Numbers", "2 Samuel"})));
+        animalMap.get("Snail").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Psalm"})));
+        animalMap.get("Snake").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Numbers", "2 Kings", "Psalm", "Isaiah", "Micah", "Revelation", "Genesis", "Amos", "Acts", "Matthew", "Proverbs", "2 Corinthians"})));
+        animalMap.get("Sparrow").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Proverbs", "Matthew", "Luke"})));
+        animalMap.get("Spider").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Isaiah", "Job"})));
+        animalMap.get("Sponge").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "John", "Mark"})));
+        animalMap.get("Stallion").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Matthew", "Mark", "Luke", "Job", "Genesis"})));
+        animalMap.get("Stork").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus", "Deuteronomy", "Psalm", "Job", "Zechariah", "Jeremiah"})));
+        animalMap.get("Swallow").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Jeremiah", "Psalm", "Proverbs"})));
+        animalMap.get("Swine").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Mark", "Leviticus", "Deuteronomy", "Matthew", "Luke", "Proverbs"})));
+        animalMap.get("Viper").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Deuteronomy", "Psalm", "Isaiah", "Job", "Matthew", "Luke", "Acts", "Genesis"})));
+        animalMap.get("Vulture").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Hosea", "Leviticus", "Deuteronomy", "Matthew", "Luke", "Proverbs"})));
+        animalMap.get("Weasel").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Leviticus"})));
+        animalMap.get("Wolf").setBooks(new ArrayList<>(Arrays.asList(new String[] {"John", "Isaiah", "Genesis", "Jeremiah"})));
+        animalMap.get("Worm").setBooks(new ArrayList<>(Arrays.asList(new String[] {"Jonah", "Mark", "Leviticus", "Deuteronomy", "Psalm", "Job", "Isaiah", "Acts", "Exodus"})));
         populateCategoryMap();
     }
 
@@ -223,74 +314,6 @@ public class Animals {
             }
         }
     }
-
-    /**
-     * Save the books to device
-     * @param context the context the app is running in
-     */
-    public void saveBooks(Context context) {
-        ArrayList<String> keys = this.getKeys(this.animalMap);
-        ArrayList<Animal> values = this.getValues(this.animalMap);
-
-        JSONObject jsonObject = new JSONObject();
-        for(int i = 0; i < keys.size(); i++) {
-            JSONArray array = new JSONArray();
-            for(int j = 0; j < values.get(i).getBooks().size(); j++) {
-                array.put(values.get(i).getBooks().get(j));
-            }
-            try {
-                jsonObject.put(keys.get(i), array);
-            }
-            catch (JSONException e) {
-                // There was a JSON error
-                // This will never occur since the app just created the JSON
-            }
-        }
-
-        String books = jsonObject.toString();
-
-        SharedPreferences sharedPref = context.getSharedPreferences(SAVE_ID, Context.MODE_PRIVATE);
-        sharedPref.edit().putString(SAVE_ID + "." + SAVE_BOOKS, books).apply();
-    }
-
-    /**
-     * Load the books
-     * @param context the context the app is running in
-     */
-    public boolean loadBooks(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(SAVE_ID, Context.MODE_PRIVATE);
-        try {
-            JSONObject jsonObject = new JSONObject(sharedPref.getString(SAVE_ID + "." + SAVE_BOOKS, ""));
-            Iterator<String> keys = jsonObject.keys();
-            while (keys.hasNext()) {
-                String key = keys.next();
-                JSONArray value = (JSONArray) jsonObject.get(key);
-                ArrayList<String> books = new ArrayList<>();
-                for(int i = 0; i < value.length(); i++) {
-                    books.add((String) value.get(i));
-                }
-                animalMap.get(key).setBooks(books);
-            }
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
-     * Set whether or not books have been gotten
-     * @param gotBooks whether books have been downloaded for the animals
-     */
-    public void setGotBooks(boolean gotBooks) {
-        this.gotBooks = gotBooks;
-    }
-
-
-    /**
-     * Get whether or not books have been gotten
-     */
-    public boolean getGotBooks() { return gotBooks; }
 
     /**
      * Get the list of animals
@@ -355,7 +378,5 @@ public class Animals {
     private static final String CREEPY_CRAWLIES = "Creepy-Crawlies";
     private static final String FISH = "Fish";
     private static final String OTHER = "Other";
-    private static final String SAVE_ID = "edu.gordon.cs.bibleanimals";
-    private static final String SAVE_BOOKS = "books";
 
 }

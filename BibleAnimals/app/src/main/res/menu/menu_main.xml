@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/sortLabel" android:title="@string/sort_by_books"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/settingsLabel" android:title="@string/settings"
+    <item android:id="@+id/creditsLabel" android:title="@string/credits_label"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

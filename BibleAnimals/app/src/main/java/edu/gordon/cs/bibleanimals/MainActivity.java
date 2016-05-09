@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -29,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
         final Context context = this;
         Animals animals = Animals.getInstance();
 
-        boolean load =  animals.loadBooks(context);
-        if(load)  animals.setGotBooks(true);
-
         setDisplayToCategories();
     }
 
@@ -50,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         // Act as the back button
-        if (id == R.id.settingsLabel) {
-            Intent intent = new Intent(this, SettingsActivity.class);
+        if (id == R.id.creditsLabel) {
+            Intent intent = new Intent(this, CreditsActivity.class);
             this.startActivity(intent);
             return true;
         }
@@ -118,15 +114,9 @@ public class MainActivity extends AppCompatActivity {
         Animals animals = Animals.getInstance();
         MenuItem menuItem = menu.findItem(R.id.sortLabel);
         if(categoriesDisplayed) {
-            if(animals.getGotBooks()) {
-                this.setDisplayToBooks();
-                menuItem.setTitle(R.string.sort_by_categories);
-                categoriesDisplayed = false;
-            }
-            else {
-                Toast.makeText(this, R.string.need_to_download_books_error,
-                        Toast.LENGTH_LONG).show();
-            }
+            this.setDisplayToBooks();
+            menuItem.setTitle(R.string.sort_by_categories);
+            categoriesDisplayed = false;
         }
         else {
             this.setDisplayToCategories();

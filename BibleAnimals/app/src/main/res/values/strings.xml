@@ -6,7 +6,6 @@
     <string name="animal_picture_description">Picture of Animal</string>
     <string name="animal_verses">Verses</string>
     <string name="back_label">Back</string>
-    <string name="settings">Settings</string>
     <string name="use_online">Use Online</string>
     <string name="download_data">Download Data</string>
     <string name="download_message">You have books data downloaded on your device. However, you can re-download information in case the Biblia Search results have improved by tapping the button below."</string>
@@ -21,7 +20,7 @@
     <string name="downloading_complete">Download complete</string>
     <string name="downloading_error">An error occurred while downloading books data</string>
     <string name="credits">This app uses the <a href="http://biblia.com/">Biblia</a> web services from <a href="http://www.logos.com/">Logos Bible Software</a>, uses encyclopedia information from <a href = "http://www.eol.org">the Encyclopedia of Life</a>, and was created by James Grams in April and May, 2016.</string>
-    <string name="creditsLabel">Credits</string>
+    <string name="credits_label">Credits</string>
     <string name="biblia_logo">Biblia logo</string>
     <string name="link_indicator">Link indicator</string>
 </resources>

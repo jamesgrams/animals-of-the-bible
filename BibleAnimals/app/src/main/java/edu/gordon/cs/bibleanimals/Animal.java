@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -46,19 +45,6 @@ public class Animal {
     }
 
     /**
-     * Fetch information needing for sorting by books of the Bible
-     */
-    public void fetchSortingInformation() {
-        this.setVerses(false);
-        this.books = new ArrayList<>();
-        for(int i = 0; i < this.verses.size(); i++) {
-            this.books.add(this.verses.get(i).getBook());
-        }
-        this.verses = null;
-    }
-
-
-    /**
      * Fetch all information needed to display comprehensive
      * information about this animal
      */
@@ -66,7 +52,7 @@ public class Animal {
         // Fetch the animal information from online
         this.setDetails();
         // Fetch the Bible verses from online
-        this.setVerses(true);
+        this.setVerses();
     }
 
     /**
@@ -251,15 +237,11 @@ public class Animal {
 
     /**
      * Set the verses view based on the response from the search on Biblia
-     * @param verseText whether or not to load the text for the verse
      * Note: This method should only be called from WITHIN AN ASYNCHRONOUS TASK
      */
-    public void setVerses(boolean verseText) {
+    public void setVerses() {
         String urlString = "http://api.biblia.com/v1/bible/search/LEB.js?query="
                 + terms[0].replaceAll(" ","") + "&key=b23da4e7ad84e911a8f2f3d1f46be194";
-        if(!verseText) {
-            urlString += "&preview=none";
-        }
         String json = "";
         try {
             URL url = new URL(urlString);
@@ -301,10 +283,7 @@ public class Animal {
                         }
                         break;
                 }
-                String preview = "";
-                if(verseText) {
-                    preview = currentObject.getString("preview");
-                }
+                String preview = currentObject.getString("preview");
                 Verse verse = new Verse(title, preview);
                 verses.add(verse);
             }
@@ -322,7 +301,7 @@ public class Animal {
     private static final String[] BEAR_VERSES = new String[]{"Hosea 13:8", "Proverbs 17:12", "Proverbs 28:15",
             "Job 9:9", "Job 38:32", "Isaiah 59:11", "1 Samuel 17:34", "Amos 5:19", "Revelation 13:2", "Lamentations 3:10",
             "2 Kings 2:24", "Daniel 7:5", "2 Samuel 17:8"};
-    private static final String[] FLY_VERSES = new String[]{"Isaiah 7:8"};
+    private static final String[] FLY_VERSES = new String[]{"Isaiah 7:18"};
     private static final String[] SWALLOW_VERSES = new String[]{"Psalm 84:3", "Proverbs 26:2", "Jeremiah 8:7"};
 
     private static final int SIZE_TO_SCALE_IMAGE = 3000;
