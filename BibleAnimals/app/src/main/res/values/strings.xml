@@ -19,7 +19,7 @@
     <string name="downloading_book_data">Downloading book data for animal</string>
     <string name="downloading_complete">Download complete</string>
     <string name="downloading_error">An error occurred while downloading books data</string>
-    <string name="credits">This app uses the <a href="http://biblia.com/">Biblia</a> web services from <a href="http://www.logos.com/">Logos Bible Software</a>, uses encyclopedia information from <a href = "http://www.eol.org">the Encyclopedia of Life</a>, and was created by James Grams in April and May, 2016.</string>
+    <string name="credits">This app uses the <a href="http://biblia.com/">Biblia</a> web services from <a href="http://www.logos.com/">Logos Bible Software</a>, uses encyclopedia information from <a href = "http://www.eol.org">the Encyclopedia of Life</a>, uses the Lexham English Bible, and was created by James Grams in April and May, 2016.</string>
     <string name="credits_label">Credits</string>
     <string name="biblia_logo">Biblia logo</string>
     <string name="link_indicator">Link indicator</string>
